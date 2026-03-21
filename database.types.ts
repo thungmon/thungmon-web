@@ -94,6 +94,39 @@ export type Database = {
           },
         ]
       }
+      community_links: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_public: boolean
+          platform: Database["public"]["Enums"]["community_link_platforms"]
+          sort_order: number
+          title: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_public?: boolean
+          platform: Database["public"]["Enums"]["community_link_platforms"]
+          sort_order: number
+          title: string
+          url: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_public?: boolean
+          platform?: Database["public"]["Enums"]["community_link_platforms"]
+          sort_order?: number
+          title?: string
+          url?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -102,7 +135,16 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      community_link_platforms:
+        | "facebook"
+        | "line"
+        | "youtube"
+        | "tiktok"
+        | "instagram"
+        | "shopee"
+        | "lazada"
+        | "twitter"
+        | "website"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -229,6 +271,18 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      community_link_platforms: [
+        "facebook",
+        "line",
+        "youtube",
+        "tiktok",
+        "instagram",
+        "shopee",
+        "lazada",
+        "twitter",
+        "website",
+      ],
+    },
   },
 } as const
