@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PhotoGallery } from "./PhotoGallery";
 import { supabase } from "@/lib/supabase";
+import { displayDate } from "@/lib/date";
 
 export default async function ActivityDetailPage({
   params,
@@ -90,7 +91,7 @@ export default async function ActivityDetailPage({
                   {activity.title}
                 </h1>
                 <p className="mt-3 text-sm text-white/70">
-                  {activity.activity_date}
+                  {displayDate(activity.activity_date)}
                 </p>
               </div>
             </div>
@@ -104,7 +105,7 @@ export default async function ActivityDetailPage({
                   {activity.title}
                 </h1>
                 <p className="mt-4 text-sm text-[#6e6e73]">
-                  {activity.activity_date}
+                  {displayDate(activity.activity_date)}
                 </p>
               </div>
             </div>

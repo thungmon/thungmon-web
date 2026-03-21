@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 import ActivityCardImage from "./ActivityCardImage";
+import { displayDate } from "@/lib/date";
 
 export default async function ActivitiesPage() {
   const { data: activities, error } = await supabase
@@ -77,7 +78,7 @@ export default async function ActivitiesPage() {
                       {activity.category}
                     </span>
                     <span className="text-[12px] text-[#6e6e73]">
-                      {activity.activity_date}
+                      {displayDate(activity.activity_date)}
                     </span>
                   </div>
 
