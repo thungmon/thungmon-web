@@ -72,6 +72,13 @@ export default async function ActivitiesPage({
         {/* ─── Cards grid ─── */}
         <div className="mx-auto max-w-6xl px-6 py-14">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Empty */}
+            {activities.length === 0 && (
+              <div className="col-span-full rounded-3xl bg-white p-12 text-center">
+                <p className="text-xl text-[#6e6e73]">ยังไม่มีข้อมูลกิจกรรม</p>
+              </div>
+            )}
+
             {activities.map((activity) => (
               <Link
                 key={activity.id}
