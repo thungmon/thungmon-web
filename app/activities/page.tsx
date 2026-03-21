@@ -1,13 +1,26 @@
-import type { Metadata } from "next";
+import { supabase } from "@/lib/supabase";
 import Link from "next/link";
-import { ACTIVITIES } from "./data";
+import ActivityCardImage from "./ActivityCardImage";
 
-export const metadata: Metadata = {
-  title: "กิจกรรม | บ้านทุ่งมน",
-  description: "ติดตามกิจกรรมและเหตุการณ์ต่าง ๆ ของชุมชนบ้านทุ่งมน",
-};
+export default async function ActivitiesPage() {
+  const { data: activities, error } = await supabase
+    .from("activities")
+    .select(
+      "id, slug, title, activity_date, cover_image, category, excerpt, description, created_at",
+    )
+    .order("activity_date", { ascending: false });
 
-export default function ActivitiesPage() {
+  console.log("Fetched activities:", activities);
+  console.log("Fetch error:", error);
+
+  if (error) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-red-500">เกิดข้อผิดพลาดในการโหลดกิจกรรม</p>
+      </div>
+    );
+  }
+
   return (
     <>
       {/* ─── Navbar ─── */}
@@ -41,7 +54,7 @@ export default function ActivitiesPage() {
         {/* ─── Cards grid ─── */}
         <div className="mx-auto max-w-6xl px-6 py-14">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {ACTIVITIES.map((activity) => (
+            {activities.map((activity) => (
               <Link
                 key={activity.id}
                 href={`/activities/${activity.id}`}
@@ -50,27 +63,21 @@ export default function ActivitiesPage() {
                 {/* Cover */}
                 <div className="relative aspect-video overflow-hidden">
                   {/* Cover image */}
-                  {activity.coverImage && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={activity.coverImage}
-                      alt={activity.title}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  )}
+                  <ActivityCardImage
+                    src={activity.cover_image}
+                    alt={activity.title}
+                  />
                 </div>
 
                 {/* Content */}
                 <div className="p-6">
                   {/* Meta row */}
                   <div className="mb-3 flex items-center gap-2">
-                    <span
-                      className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${activity.categoryStyle}`}
-                    >
+                    <span className="rounded-full px-2.5 py-1 text-[11px] font-medium">
                       {activity.category}
                     </span>
                     <span className="text-[12px] text-[#6e6e73]">
-                      {activity.date}
+                      {activity.activity_date}
                     </span>
                   </div>
 

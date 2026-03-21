@@ -1,3 +1,4 @@
+import { IMAGE_DEFAULT } from "@/constants/app-config";
 import Link from "next/link";
 
 export default function Home() {
@@ -9,7 +10,7 @@ export default function Home() {
           {/* Background Image */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/bg-thungmon.jpg"
+            src={IMAGE_DEFAULT.BG_THUNGMON}
             alt="ทุ่งมน"
             className="absolute inset-0 h-full w-full object-cover"
             style={{
@@ -20,7 +21,7 @@ export default function Home() {
           <video
             preload="auto"
             className="absolute inset-0 h-full w-full object-cover"
-            src="/bg-thungmon.mp4"
+            src={IMAGE_DEFAULT.BG_THUNGMON_VIDEO}
             autoPlay
             loop
             muted

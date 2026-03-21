@@ -1,7 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import type { ActivityImage } from "../data";
+
+export interface ActivityImage {
+  id: string;
+  filename: string | null;
+  url: string | null;
+  caption: string | null;
+}
 
 function DownloadIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
@@ -91,8 +97,8 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
 
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={img.url}
-              alt={img.caption ?? img.filename}
+              src={img.url || undefined}
+              alt={img.caption ?? img.filename ?? ""}
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
 
@@ -117,7 +123,7 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
             {/* Caption gradient bar */}
             <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/55 to-transparent px-3 pt-6 pb-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <p className="truncate text-[11px] text-white/90">
-                {img.caption ?? img.filename}
+                {img.caption ?? ""}
               </p>
             </div>
           </button>
@@ -141,8 +147,8 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               key={current.id}
-              src={current.url}
-              alt={current.caption ?? current.filename}
+              src={current.url || undefined}
+              alt={current.caption ?? current.filename ?? ""}
               className="max-h-[78vh] max-w-full rounded-2xl object-contain shadow-2xl"
             />
             {/* Caption */}
@@ -163,7 +169,7 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
           {/* Top-right: download + close */}
           <div className="absolute top-5 right-5 z-10 flex items-center gap-2">
             <a
-              href={current.url}
+              href={current.url || undefined}
               download={current.filename}
               onClick={(e) => e.stopPropagation()}
               className="flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-[12px] font-medium text-white backdrop-blur-sm transition hover:bg-white/20"
