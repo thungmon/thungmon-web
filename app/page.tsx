@@ -1,11 +1,24 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <>
-      <main>
+      <main className="bg-orange-950">
         {/* ─── Hero ────────────────────────────────────────────────── */}
         <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden pt-14">
+          {/* Background Image */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/bg-thungmon.jpg"
+            alt="ทุ่งมน"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{
+              filter: "brightness(0.6) contrast(1.1) saturate(1.2)",
+            }}
+          />
           {/* Background video */}
           <video
+            preload="auto"
             className="absolute inset-0 h-full w-full object-cover"
             src="/bg-thungmon.mp4"
             autoPlay
@@ -21,7 +34,7 @@ export default function Home() {
 
           <div className="relative z-10 max-w-5xl px-6 text-center">
             {/* Breadcrumb label */}
-            <p className="mb-2 text-sm font-medium text-amber-300/90 uppercase">
+            <p className="mb-4 text-sm font-medium text-amber-300/90 uppercase">
               ตำบลทุ่งมน · อำเภอคำเขื่อนแก้ว · จังหวัดยโสธร · ภาคอีสาน
             </p>
 
@@ -31,7 +44,7 @@ export default function Home() {
             </h1>
 
             {/* Sub-headline */}
-            <p className="mt-7 mb-12 text-lg font-light text-white/75 md:text-xl">
+            <p className="mt-9 mb-12 text-lg font-light text-white/75 md:text-xl">
               ชุมชนแห่งผืนนาข้าวหอมมะลิ
               <br className="hidden sm:block" />
               วัฒนธรรมอีสานอันงดงาม และวิถีชีวิตที่อบอุ่นใจ
@@ -39,18 +52,13 @@ export default function Home() {
 
             {/* CTAs */}
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <a
-                href="#about"
-                className="rounded-full bg-white px-8 py-3 text-sm font-medium text-black shadow-sm transition-all duration-200 hover:bg-white/80"
+              <Link
+                prefetch
+                href="/activities"
+                className="rounded-full bg-white px-8 py-3 text-sm font-medium text-black shadow-sm transition-all duration-200 select-none hover:bg-white/80"
               >
                 ค้นพบชุมชน
-              </a>
-              <a
-                href="#highlights"
-                className="rounded-full border border-white/40 px-8 py-3 text-sm font-medium text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/10"
-              >
-                ดูไฮไลต์
-              </a>
+              </Link>
             </div>
           </div>
         </section>

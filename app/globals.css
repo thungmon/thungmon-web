@@ -4,6 +4,11 @@ html {
   scroll-behavior: smooth;
 }
 
+*::selection {
+  background-color: oklch(68.1% 0.162 75.834);
+  color: white;
+}
+
 body {
   font-family: var(--font-sarabun), system-ui, sans-serif;
 }
