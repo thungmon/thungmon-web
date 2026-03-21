@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Sarabun } from "next/font/google";
 import "./globals.css";
 import "dayjs/locale/th";
@@ -9,6 +9,13 @@ const sarabun = Sarabun({
   weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 export const metadata: Metadata = {
   title: {

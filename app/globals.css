@@ -13,6 +13,12 @@ body {
   font-family: var(--font-sarabun), system-ui, sans-serif;
 }
 
+a,
+button,
+[role="button"] {
+  touch-action: manipulation;
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;

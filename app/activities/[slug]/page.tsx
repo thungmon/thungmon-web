@@ -1,8 +1,65 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PhotoGallery } from "./PhotoGallery";
 import { supabase } from "@/lib/supabase";
 import { displayDate } from "@/lib/date";
 import { redirect } from "next/navigation";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+
+  const { data: activity } = await supabase
+    .from("activities")
+    .select("title, excerpt, cover_image, activity_date, category, slug")
+    .eq("slug", decodeURIComponent(slug))
+    .single();
+
+  if (!activity) return {};
+
+  const title = activity.title;
+  const description = activity.excerpt;
+  const url = `/activities/${activity.slug}`;
+  const images = activity.cover_image
+    ? [
+        {
+          url: activity.cover_image,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ]
+    : [];
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} | บ้านทุ่งมน`,
+      description,
+      url,
+      type: "article",
+      locale: "th_TH",
+      images,
+      publishedTime: activity.activity_date,
+      tags: [activity.category, "บ้านทุ่งมน", "ทุ่งมน", "ยโสธร"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | บ้านทุ่งมน`,
+      description,
+      images: activity.cover_image ? [activity.cover_image] : undefined,
+    },
+    alternates: {
+      canonical: url,
+    },
+  };
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default async function ActivityDetailPage({
   params,
