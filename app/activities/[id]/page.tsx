@@ -96,7 +96,7 @@ export default async function ActivityDetailPage({
               </div>
             </div>
           ) : (
-            <div className="bg-linear-to-br py-24 text-center">
+            <div className="bg-gray-100 bg-linear-to-br py-24 text-center">
               <div className="mx-auto max-w-3xl px-6">
                 <span className="mb-4 inline-block rounded-full bg-rose-100 px-3 py-1 text-xs font-medium text-rose-700">
                   {activity.category}
