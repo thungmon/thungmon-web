@@ -7,17 +7,16 @@ import { redirect } from "next/navigation";
 export default async function ActivityDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
-  console.log("Fetching activity with id:", id);
+  const { slug } = await params;
 
   const { data: activity, error } = await supabase
     .from("activities")
     .select(
       "id, slug, title, activity_date, cover_image, category, excerpt, description, created_at, activity_images (id, filename, url, caption, sort_order, created_at)",
     )
-    .eq("id", id)
+    .eq("slug", decodeURIComponent(slug))
     .single();
 
   if (error || !activity) {
