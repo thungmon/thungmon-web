@@ -1,5 +1,6 @@
 "use client";
 
+import DownloadIcon from "@/components/icons/download-icon";
 import { useCallback, useEffect, useState } from "react";
 
 export interface ActivityImage {
@@ -7,24 +8,6 @@ export interface ActivityImage {
   filename: string | null;
   url: string | null;
   caption: string | null;
-}
-
-function DownloadIcon({ className = "h-4 w-4" }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-      />
-    </svg>
-  );
 }
 
 export function PhotoGallery({ images }: { images: ActivityImage[] }) {
@@ -174,7 +157,7 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
               onClick={(e) => e.stopPropagation()}
               className="flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-[12px] font-medium text-white backdrop-blur-sm transition hover:bg-white/20"
             >
-              <DownloadIcon />
+              <DownloadIcon className="h-4 w-4" />
               ดาวน์โหลด
             </a>
             <button

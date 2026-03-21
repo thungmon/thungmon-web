@@ -2,43 +2,25 @@ import Link from "next/link";
 import { PhotoGallery } from "./PhotoGallery";
 import { supabase } from "@/lib/supabase";
 import { displayDate } from "@/lib/date";
+import { redirect } from "next/navigation";
 
 export default async function ActivityDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
-  console.log("Fetching activity with id:", id);
+  const { slug } = await params;
 
   const { data: activity, error } = await supabase
     .from("activities")
     .select(
       "id, slug, title, activity_date, cover_image, category, excerpt, description, created_at, activity_images (id, filename, url, caption, sort_order, created_at)",
     )
-    .eq("id", id)
+    .eq("slug", decodeURIComponent(slug))
     .single();
 
-  console.log("Fetched activity:", activity);
-  console.log("Fetch error:", error);
-
-  if (error) {
-    console.error("Error fetching activity:", error);
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-red-500">เกิดข้อผิดพลาดในการโหลดกิจกรรม</p>
-      </div>
-    );
-  }
-
-  if (!activity) {
-    return (
-      <>
-        <div className="flex min-h-screen items-center justify-center">
-          <p className="text-red-500">ไม่พบกิจกรรมนี้</p>
-        </div>
-      </>
-    );
+  if (error || !activity) {
+    return redirect("/activities");
   }
 
   return (

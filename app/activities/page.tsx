@@ -82,7 +82,7 @@ export default async function ActivitiesPage({
             {activities.map((activity) => (
               <Link
                 key={activity.id}
-                href={`/activities/${activity.id}`}
+                href={`/activities/${activity.slug}`}
                 className="group block overflow-hidden rounded-3xl bg-white shadow-sm transition-shadow duration-300 hover:shadow-xl"
               >
                 {/* Cover */}
