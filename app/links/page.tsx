@@ -63,16 +63,16 @@ export default async function LinksPage() {
           </p>
         </div>
 
-        <div className="mx-auto max-w-5xl px-6 py-14">
-          {communityLinks.length === 0 && (
+        {communityLinks.length === 0 && (
+          <div className="mx-auto max-w-5xl px-6 py-14">
             <div className="rounded-3xl bg-white p-16 text-center">
               <p className="text-[#6e6e73]">ยังไม่มีข้อมูลช่องทาง</p>
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* ─── Content ─── */}
-        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 px-6 py-14">
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 px-6 py-14 sm:grid-cols-2">
           {communityLinks.map((l) => (
             <LinkCard key={l.id} link={l} />
           ))}
