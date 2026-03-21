@@ -1,18 +1,33 @@
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 import ActivityCardImage from "./ActivityCardImage";
+import Pagination from "@/components/Pagination";
 import { displayDate } from "@/lib/date";
 
-export default async function ActivitiesPage() {
-  const { data: activities, error } = await supabase
+const PAGE_SIZE = 6;
+
+export default async function ActivitiesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page: pageParam } = await searchParams;
+  const page = Math.max(1, parseInt(pageParam ?? "1", 10) || 1);
+  const from = (page - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+
+  const {
+    data: activities,
+    error,
+    count,
+  } = await supabase
     .from("activities")
     .select(
-      "id, slug, title, activity_date, cover_image, category, excerpt, description, created_at",
+      "id, slug, title, activity_date, cover_image, category, excerpt, created_at",
+      { count: "exact" },
     )
-    .order("activity_date", { ascending: false });
-
-  console.log("Fetched activities:", activities);
-  console.log("Fetch error:", error);
+    .order("activity_date", { ascending: false })
+    .range(from, to);
 
   if (error) {
     return (
@@ -21,6 +36,8 @@ export default async function ActivitiesPage() {
       </div>
     );
   }
+
+  const totalPages = Math.ceil((count ?? 0) / PAGE_SIZE);
 
   return (
     <>
@@ -103,6 +120,8 @@ export default async function ActivitiesPage() {
               </Link>
             ))}
           </div>
+
+          <Pagination currentPage={page} totalPages={totalPages} />
         </div>
       </main>
     </>
