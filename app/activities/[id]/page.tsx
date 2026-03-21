@@ -84,7 +84,7 @@ export default async function ActivityDetailPage({
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
               {/* Text pinned to bottom */}
               <div className="absolute right-0 bottom-0 left-0 px-6 pb-10 text-center">
-                <span className="mb-4 inline-block rounded-full px-3 py-1 text-[11px] font-medium">
+                <span className="mb-4 inline-block rounded-full bg-rose-100 px-3 py-1 text-xs font-medium text-rose-700">
                   {activity.category}
                 </span>
                 <h1 className="mt-2 text-4xl leading-[1.15] font-bold tracking-tight text-white md:text-5xl">
@@ -98,7 +98,7 @@ export default async function ActivityDetailPage({
           ) : (
             <div className="bg-linear-to-br py-24 text-center">
               <div className="mx-auto max-w-3xl px-6">
-                <span className="mb-4 inline-block rounded-full px-3 py-1 text-[11px] font-medium">
+                <span className="mb-4 inline-block rounded-full bg-rose-100 px-3 py-1 text-xs font-medium text-rose-700">
                   {activity.category}
                 </span>
                 <h1 className="text-4xl leading-[1.15] font-bold tracking-tight text-[#1d1d1f] md:text-5xl">

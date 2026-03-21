@@ -74,7 +74,7 @@ export default async function ActivitiesPage() {
                 <div className="p-6">
                   {/* Meta row */}
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="rounded-full px-2.5 py-1 text-[11px] font-medium">
+                    <span className="rounded-full bg-rose-100 px-2.5 py-1 text-[11px] font-medium text-rose-700">
                       {activity.category}
                     </span>
                     <span className="text-[12px] text-[#6e6e73]">
