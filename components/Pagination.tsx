@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 
@@ -34,7 +34,7 @@ export default function Pagination({
         p === "…" ? (
           <span
             key={`ellipsis-${i}`}
-            className="flex h-9 w-9 items-center justify-center text-sm text-[#6e6e73]"
+            className="flex h-9 w-9 items-center justify-center text-sm text-zinc-500"
           >
             …
           </span>
@@ -93,7 +93,7 @@ function PagerLink({
     return (
       <span
         aria-disabled="true"
-        className={`${base} cursor-not-allowed text-[#c7c7cc]`}
+        className={`${base} cursor-not-allowed text-zinc-300`}
       >
         {children}
       </span>
@@ -104,7 +104,7 @@ function PagerLink({
     return (
       <span
         aria-current={ariaCurrent}
-        className={`${base} bg-[#1d1d1f] text-white`}
+        className={`${base} bg-zinc-900 text-white`}
       >
         {children}
       </span>
@@ -116,7 +116,7 @@ function PagerLink({
       href={href}
       aria-label={ariaLabel}
       aria-current={ariaCurrent}
-      className={`${base} text-[#1d1d1f] hover:bg-black/5`}
+      className={`${base} text-zinc-900 hover:bg-black/5`}
     >
       {children}
     </Link>

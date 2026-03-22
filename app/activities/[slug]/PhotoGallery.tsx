@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import DownloadIcon from "@/components/icons/download-icon";
 import { useCallback, useEffect, useState } from "react";
@@ -61,12 +61,12 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
             type="button"
             aria-label={`ดูรูป ${img.caption ?? img.filename}`}
             onClick={() => setOpenIndex(i)}
-            className="group relative aspect-4/3 w-full cursor-pointer overflow-hidden rounded-2xl bg-[#f5f5f7]"
+            className="group relative aspect-4/3 w-full cursor-pointer overflow-hidden rounded-2xl bg-neutral-100"
           >
             {/* Placeholder */}
             <div className="absolute inset-0 flex items-center justify-center">
               <svg
-                className="h-8 w-8 text-[#d2d2d7]"
+                className="h-8 w-8 text-zinc-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1}
@@ -98,14 +98,14 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
                 <circle cx="11" cy="11" r="7" />
                 <path strokeLinecap="round" d="M21 21l-4.35-4.35" />
               </svg>
-              <span className="translate-y-1 text-[12px] font-medium text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+              <span className="translate-y-1 text-xs font-medium text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
                 ดูรูปเต็ม
               </span>
             </div>
 
             {/* Caption gradient bar */}
             <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/55 to-transparent px-3 pt-6 pb-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <p className="truncate text-[11px] text-white/90">
+              <p className="truncate text-xs text-white/90">
                 {img.caption ?? ""}
               </p>
             </div>
@@ -144,7 +144,7 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
 
           {/* Top-left: counter */}
           <div className="absolute top-5 left-5 z-10 flex items-center gap-3">
-            <span className="rounded-full bg-white/10 px-3 py-1.5 text-[12px] text-white/60 backdrop-blur-sm">
+            <span className="rounded-full bg-white/10 px-3 py-1.5 text-xs text-white/60 backdrop-blur-sm">
               {openIndex! + 1} / {images.length}
             </span>
           </div>
@@ -155,7 +155,7 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
               href={current.url || undefined}
               download={current.filename}
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-[12px] font-medium text-white backdrop-blur-sm transition hover:bg-white/20"
+              className="flex items-center gap-1.5 rounded-full bg-white/10 px-4 py-2 text-xs font-medium text-white backdrop-blur-sm transition hover:bg-white/20"
             >
               <DownloadIcon className="h-4 w-4" />
               ดาวน์โหลด
@@ -233,7 +233,7 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
           )}
 
           {/* Keyboard hint */}
-          <p className="absolute bottom-5 left-1/2 -translate-x-1/2 text-[11px] text-white/25">
+          <p className="absolute bottom-5 left-1/2 -translate-x-1/2 text-xs text-white/25">
             ← → เลื่อนดูรูป · Esc ปิด
           </p>
         </div>

@@ -1,6 +1,7 @@
-import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+﻿import { supabase } from "@/lib/supabase";
 import type { Tables } from "@/database.types";
+import ErrorView from "@/components/ErrorView";
+import SubpageNavbar from "@/components/SubpageNavbar";
 
 type CommunityLink = Tables<"community_links">;
 
@@ -19,7 +20,7 @@ const PLATFORM_CONFIG: Record<
   website: { bg: "#636366", fg: "#fff", label: "W", name: "เว็บไซต์" },
 };
 
-export const revalidate = 0; 
+export const revalidate = 0;
 
 export default async function LinksPage() {
   const { data: communityLinks, error } = await supabase
@@ -29,38 +30,26 @@ export default async function LinksPage() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-red-500">เกิดข้อผิดพลาดในการโหลดข้อมูล</p>
-      </div>
+      <>
+        <SubpageNavbar breadcrumbs={[{ label: "ช่องทางติดตาม" }]} />
+        <ErrorView message="เกิดข้อผิดพลาดในการโหลดช่องทางติดตาม กรุณาลองใหม่อีกครั้ง" />
+      </>
     );
   }
 
   return (
     <>
-      {/* ─── Navbar ─── */}
-      <header className="sticky top-0 z-50 border-b border-black/6 bg-white/80 backdrop-blur-2xl">
-        <nav className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-6 text-[13px]">
-          <Link
-            href="/"
-            className="text-[#6e6e73] transition-colors hover:text-[#1d1d1f]"
-          >
-            ← บ้านทุ่งมน
-          </Link>
-          <span className="text-[#6e6e73]/40">/</span>
-          <span className="font-medium text-[#1d1d1f]">ช่องทางติดตาม</span>
-        </nav>
-      </header>
-
-      <main className="min-h-screen bg-[#f5f5f7]">
+      <SubpageNavbar breadcrumbs={[{ label: "ช่องทางติดตาม" }]} />
+      <main className="min-h-screen bg-neutral-100">
         {/* ─── Page header ─── */}
         <div className="border-b border-black/6 bg-white py-20 text-center">
-          <p className="mb-3 text-[11px] font-medium tracking-[0.22em] text-[#6e6e73] uppercase">
+          <p className="mb-3 text-xs font-medium tracking-[0.22em] text-zinc-500 uppercase">
             ชุมชนบ้านทุ่งมน
           </p>
-          <h1 className="text-5xl font-bold tracking-tight text-[#1d1d1f]">
+          <h1 className="text-5xl font-bold tracking-tight text-zinc-900">
             ช่องทางติดตาม
           </h1>
-          <p className="mt-4 text-base text-[#6e6e73]">
+          <p className="mt-4 text-base text-zinc-500">
             รวมทุกช่องทางที่เชื่อมต่อกับชุมชนบ้านทุ่งมน
           </p>
         </div>
@@ -68,7 +57,7 @@ export default async function LinksPage() {
         {communityLinks.length === 0 && (
           <div className="mx-auto max-w-5xl px-6 py-14">
             <div className="rounded-3xl bg-white p-16 text-center">
-              <p className="text-[#6e6e73]">ยังไม่มีข้อมูลช่องทาง</p>
+              <p className="text-zinc-500">ยังไม่มีข้อมูลช่องทาง</p>
             </div>
           </div>
         )}
@@ -116,21 +105,21 @@ function LinkCard({ link }: { link: CommunityLink }) {
       {/* Content */}
       <div className="min-w-0 flex-1">
         <div className="flex items-start justify-between gap-2">
-          <p className="text-sm leading-snug font-semibold text-[#1d1d1f] underline decoration-[#1d1d1f]/0 underline-offset-2 transition-all group-hover:decoration-[#1d1d1f]/25">
+          <p className="text-sm leading-snug font-semibold text-zinc-900 underline decoration-zinc-900/0 underline-offset-2 transition-all group-hover:decoration-zinc-900/25">
             {link.title}
           </p>
         </div>
-        <p className="mt-0.5 text-[11px] text-[#6e6e73]">{pCfg.name}</p>
+        <p className="mt-0.5 text-xs text-zinc-500">{pCfg.name}</p>
         {link.description && (
-          <p className="mt-1.5 line-clamp-2 text-[12px] leading-relaxed text-[#6e6e73]">
+          <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-zinc-500">
             {link.description}
           </p>
         )}
-        <p className="mt-2 truncate text-[11px] text-[#b0b0b5]">{domain}</p>
+        <p className="mt-2 truncate text-xs text-zinc-400">{domain}</p>
       </div>
 
       {/* Arrow */}
-      <div className="shrink-0 self-center text-[#c7c7cc] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-[#6e6e73]">
+      <div className="shrink-0 self-center text-zinc-300 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-zinc-500">
         →
       </div>
     </a>
