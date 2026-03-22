@@ -1,10 +1,26 @@
 ﻿import { supabase } from "@/lib/supabase";
-import Link from "next/link";
-import ActivityCardImage from "./ActivityCardImage";
+import type { Metadata } from "next";
 import Pagination from "@/components/Pagination";
-import { displayDate } from "@/lib/date";
-import dayjs from "dayjs";
+import ActivityCard from "@/components/ActivityCard";
 import ErrorView from "@/components/ErrorView";
+
+export const metadata: Metadata = {
+  title: "กิจกรรม",
+  description: "ติดตามกิจกรรมและเหตุการณ์ต่าง ๆ ของชุมชนบ้านทุ่งมน",
+  openGraph: {
+    title: "กิจกรรม | บ้านทุ่งมน",
+    description: "ติดตามกิจกรรมและเหตุการณ์ต่าง ๆ ของชุมชนบ้านทุ่งมน",
+    url: "/activities",
+    type: "website",
+    locale: "th_TH",
+  },
+  twitter: {
+    card: "summary",
+    title: "กิจกรรม | บ้านทุ่งมน",
+    description: "ติดตามกิจกรรมและเหตุการณ์ต่าง ๆ ของชุมชนบ้านทุ่งมน",
+  },
+  alternates: { canonical: "/activities" },
+};
 
 const PAGE_SIZE = 6;
 export const revalidate = 0;
@@ -67,56 +83,7 @@ export default async function ActivitiesPage({
             )}
 
             {activities.map((activity) => (
-              <Link
-                key={activity.id}
-                href={`/activities/${activity.slug}`}
-                className="group block overflow-hidden rounded-3xl bg-white shadow-sm transition-shadow duration-300 hover:shadow-xl"
-              >
-                {/* Cover */}
-                <div className="relative aspect-video overflow-hidden">
-                  {/* Cover image */}
-                  <ActivityCardImage
-                    src={activity.cover_image}
-                    alt={activity.title}
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  {/* Meta row */}
-                  <div className="mb-3 flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-rose-100 px-2.5 py-1 text-xs font-medium text-rose-700">
-                      {activity.category}
-                    </span>
-                    {dayjs(activity.activity_date).isAfter(dayjs()) && (
-                      <span className="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-700">
-                        กำลังจะมาถึง
-                      </span>
-                    )}
-                    <span className="text-xs text-zinc-500">
-                      {displayDate(activity.activity_date)}
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <h2 className="mb-2 text-base leading-snug font-bold text-zinc-900 underline decoration-zinc-900/0 underline-offset-2 transition-all group-hover:decoration-zinc-900/20">
-                    {activity.title}
-                  </h2>
-
-                  {/* Excerpt */}
-                  <p className="line-clamp-2 text-sm leading-relaxed text-zinc-500">
-                    {activity.excerpt}
-                  </p>
-
-                  {/* Arrow CTA */}
-                  <div className="mt-5 flex items-center gap-1 text-sm font-medium text-zinc-900">
-                    ดูรายละเอียด
-                    <span className="transition-transform duration-200 group-hover:translate-x-1">
-                      →
-                    </span>
-                  </div>
-                </div>
-              </Link>
+              <ActivityCard key={activity.id} {...activity} />
             ))}
           </div>
 

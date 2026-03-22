@@ -1,6 +1,6 @@
 ﻿import type { Metadata } from "next";
 import Link from "next/link";
-import { PhotoGallery } from "./PhotoGallery";
+import { PhotoGallery } from "@/components/PhotoGallery";
 import SubpageNavbar from "@/components/SubpageNavbar";
 import { supabase } from "@/lib/supabase";
 import { displayDate } from "@/lib/date";

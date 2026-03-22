@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import DownloadIcon from "@/components/icons/download-icon";
 import { useCallback, useEffect, useState } from "react";
