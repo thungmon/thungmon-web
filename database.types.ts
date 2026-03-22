@@ -17,6 +17,7 @@ export type Database = {
       activities: {
         Row: {
           activity_date: string
+          bucket_name: string | null
           category: string
           cover_image: string
           created_at: string
@@ -29,6 +30,7 @@ export type Database = {
         }
         Insert: {
           activity_date: string
+          bucket_name?: string | null
           category: string
           cover_image: string
           created_at?: string
@@ -41,6 +43,7 @@ export type Database = {
         }
         Update: {
           activity_date?: string
+          bucket_name?: string | null
           category?: string
           cover_image?: string
           created_at?: string
