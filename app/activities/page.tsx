@@ -5,6 +5,7 @@ import Pagination from "@/components/Pagination";
 import { displayDate } from "@/lib/date";
 
 const PAGE_SIZE = 6;
+export const revalidate = 0;
 
 export default async function ActivitiesPage({
   searchParams,
