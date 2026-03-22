@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const NAV_ITEMS = [
   { href: "/activities", label: "กิจกรรม" },
   { href: "/links", label: "ช่องทางติดตาม" },
+  { href: "/about", label: "เกี่ยวกับเรา" },
 ];
 
 export default function SiteNav() {
