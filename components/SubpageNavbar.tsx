@@ -12,13 +12,13 @@ interface SubpageNavbarProps {
 
 export default function SubpageNavbar({ breadcrumbs }: SubpageNavbarProps) {
   return (
-    <header className="sticky top-0 z-50 border-b border-black/6 bg-white/80 backdrop-blur-2xl">
-      <nav className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-6 text-sm">
+    <header className="border-b border-black/6 bg-white">
+      <nav className="mx-auto flex h-10 max-w-6xl items-center gap-2 px-6 text-xs text-zinc-500">
         <Link
           href="/"
           className="shrink-0 text-zinc-500 transition-colors hover:text-zinc-900"
         >
-          ← บ้านทุ่งมน
+          บ้านทุ่งมน
         </Link>
         {breadcrumbs.map((item, i) => (
           <Fragment key={i}>
@@ -26,7 +26,7 @@ export default function SubpageNavbar({ breadcrumbs }: SubpageNavbarProps) {
             {item.href ? (
               <Link
                 href={item.href}
-                className="shrink-0 text-zinc-500 transition-colors hover:text-zinc-900"
+                className="shrink-0 transition-colors hover:text-zinc-900"
               >
                 {item.label}
               </Link>
