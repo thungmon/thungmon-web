@@ -49,7 +49,7 @@ export default async function ActivitiesPage({
       <main className="min-h-screen bg-neutral-100">
         {/* ─── Page header ─── */}
         <div className="border-b border-black/6 bg-white py-20 text-center">
-          <p className="mb-3 text-[11px] font-medium tracking-[0.22em] text-zinc-500 uppercase">
+          <p className="mb-3 text-xs font-medium tracking-[0.22em] text-zinc-500 uppercase">
             ชุมชนบ้านทุ่งมน
           </p>
           <h1 className="text-5xl font-bold tracking-tight text-zinc-900">
@@ -89,10 +89,10 @@ export default async function ActivitiesPage({
                 <div className="p-6">
                   {/* Meta row */}
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="rounded-full bg-rose-100 px-2.5 py-1 text-[11px] font-medium text-rose-700">
+                    <span className="rounded-full bg-rose-100 px-2.5 py-1 text-xs font-medium text-rose-700">
                       {activity.category}
                     </span>
-                    <span className="text-[12px] text-zinc-500">
+                    <span className="text-xs text-zinc-500">
                       {displayDate(activity.activity_date)}
                     </span>
                   </div>
@@ -103,12 +103,12 @@ export default async function ActivitiesPage({
                   </h2>
 
                   {/* Excerpt */}
-                  <p className="line-clamp-2 text-[13px] leading-relaxed text-zinc-500">
+                  <p className="line-clamp-2 text-sm leading-relaxed text-zinc-500">
                     {activity.excerpt}
                   </p>
 
                   {/* Arrow CTA */}
-                  <div className="mt-5 flex items-center gap-1 text-[13px] font-medium text-zinc-900">
+                  <div className="mt-5 flex items-center gap-1 text-sm font-medium text-zinc-900">
                     ดูรายละเอียด
                     <span className="transition-transform duration-200 group-hover:translate-x-1">
                       →

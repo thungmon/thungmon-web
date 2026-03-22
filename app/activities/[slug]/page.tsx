@@ -140,10 +140,10 @@ export default async function ActivityDetailPage({
         <div className="mx-auto max-w-3xl px-6 py-16">
           {/* ─── Description ─── */}
           <section>
-            <p className="mb-6 text-[11px] font-medium tracking-[0.22em] text-zinc-500 uppercase">
+            <p className="mb-6 text-xs font-medium tracking-[0.22em] text-zinc-500 uppercase">
               รายละเอียดกิจกรรม
             </p>
-            <div className="space-y-5 text-[15px] leading-[1.85] text-zinc-900">
+            <div className="space-y-5 text-base leading-[1.85] text-zinc-900">
               {activity.description.split("\n\n").map((para, i) => (
                 <p key={i}>{para}</p>
               ))}
@@ -156,14 +156,14 @@ export default async function ActivityDetailPage({
           <section>
             <div className="mb-8 flex items-end justify-between">
               <div>
-                <p className="mb-1 text-[11px] font-medium tracking-[0.22em] text-zinc-500 uppercase">
+                <p className="mb-1 text-xs font-medium tracking-[0.22em] text-zinc-500 uppercase">
                   รูปภาพกิจกรรม
                 </p>
                 <p className="text-2xl font-bold tracking-tight text-zinc-900">
                   {activity.activity_images.length} รูป
                 </p>
               </div>
-              <p className="text-[12px] text-zinc-500">กดรูปเพื่อดูเต็มจอ</p>
+              <p className="text-xs text-zinc-500">กดรูปเพื่อดูเต็มจอ</p>
             </div>
             <PhotoGallery images={activity.activity_images} />
           </section>

@@ -43,7 +43,7 @@ export default async function LinksPage() {
       <main className="min-h-screen bg-neutral-100">
         {/* ─── Page header ─── */}
         <div className="border-b border-black/6 bg-white py-20 text-center">
-          <p className="mb-3 text-[11px] font-medium tracking-[0.22em] text-zinc-500 uppercase">
+          <p className="mb-3 text-xs font-medium tracking-[0.22em] text-zinc-500 uppercase">
             ชุมชนบ้านทุ่งมน
           </p>
           <h1 className="text-5xl font-bold tracking-tight text-zinc-900">
@@ -109,13 +109,13 @@ function LinkCard({ link }: { link: CommunityLink }) {
             {link.title}
           </p>
         </div>
-        <p className="mt-0.5 text-[11px] text-zinc-500">{pCfg.name}</p>
+        <p className="mt-0.5 text-xs text-zinc-500">{pCfg.name}</p>
         {link.description && (
-          <p className="mt-1.5 line-clamp-2 text-[12px] leading-relaxed text-zinc-500">
+          <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-zinc-500">
             {link.description}
           </p>
         )}
-        <p className="mt-2 truncate text-[11px] text-zinc-400">{domain}</p>
+        <p className="mt-2 truncate text-xs text-zinc-400">{domain}</p>
       </div>
 
       {/* Arrow */}

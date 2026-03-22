@@ -13,7 +13,7 @@ interface SubpageNavbarProps {
 export default function SubpageNavbar({ breadcrumbs }: SubpageNavbarProps) {
   return (
     <header className="sticky top-0 z-50 border-b border-black/6 bg-white/80 backdrop-blur-2xl">
-      <nav className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-6 text-[13px]">
+      <nav className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-6 text-sm">
         <Link
           href="/"
           className="shrink-0 text-zinc-500 transition-colors hover:text-zinc-900"

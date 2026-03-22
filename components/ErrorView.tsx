@@ -45,7 +45,7 @@ export default function ErrorView({
         )}
         <Link
           href={backHref}
-          className="mt-8 inline-flex items-center gap-1.5 rounded-full bg-zinc-900 px-5 py-2.5 text-[13px] font-medium text-white transition-opacity hover:opacity-80"
+          className="mt-8 inline-flex items-center gap-1.5 rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-80"
         >
           {backLabel}
         </Link>
