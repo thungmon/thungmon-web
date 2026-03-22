@@ -25,7 +25,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/explore" },
 };
 
-export const revalidate = 0;
+// cache for 5 minutes
+export const revalidate = 300;
 
 export default async function ExplorePage() {
   const [activitiesResult, linksResult] = await Promise.all([
