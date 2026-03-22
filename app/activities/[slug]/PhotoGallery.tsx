@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import DownloadIcon from "@/components/icons/download-icon";
 import { useCallback, useEffect, useState } from "react";
@@ -61,12 +61,12 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
             type="button"
             aria-label={`ดูรูป ${img.caption ?? img.filename}`}
             onClick={() => setOpenIndex(i)}
-            className="group relative aspect-4/3 w-full cursor-pointer overflow-hidden rounded-2xl bg-[#f5f5f7]"
+            className="group relative aspect-4/3 w-full cursor-pointer overflow-hidden rounded-2xl bg-neutral-100"
           >
             {/* Placeholder */}
             <div className="absolute inset-0 flex items-center justify-center">
               <svg
-                className="h-8 w-8 text-[#d2d2d7]"
+                className="h-8 w-8 text-zinc-300"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1}

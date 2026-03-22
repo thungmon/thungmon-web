@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+﻿import { Fragment } from "react";
 import Link from "next/link";
 
 interface BreadcrumbItem {
@@ -16,22 +16,22 @@ export default function SubpageNavbar({ breadcrumbs }: SubpageNavbarProps) {
       <nav className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-6 text-[13px]">
         <Link
           href="/"
-          className="shrink-0 text-[#6e6e73] transition-colors hover:text-[#1d1d1f]"
+          className="shrink-0 text-zinc-500 transition-colors hover:text-zinc-900"
         >
           ← บ้านทุ่งมน
         </Link>
         {breadcrumbs.map((item, i) => (
           <Fragment key={i}>
-            <span className="shrink-0 text-[#6e6e73]/40">/</span>
+            <span className="shrink-0 text-zinc-500/40">/</span>
             {item.href ? (
               <Link
                 href={item.href}
-                className="shrink-0 text-[#6e6e73] transition-colors hover:text-[#1d1d1f]"
+                className="shrink-0 text-zinc-500 transition-colors hover:text-zinc-900"
               >
                 {item.label}
               </Link>
             ) : (
-              <span className="max-w-50 truncate font-medium text-[#1d1d1f]">
+              <span className="max-w-50 truncate font-medium text-zinc-900">
                 {item.label}
               </span>
             )}

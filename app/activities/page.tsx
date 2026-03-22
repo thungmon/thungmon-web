@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+﻿import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 import ActivityCardImage from "./ActivityCardImage";
 import Pagination from "@/components/Pagination";
@@ -46,16 +46,16 @@ export default async function ActivitiesPage({
   return (
     <>
       <SubpageNavbar breadcrumbs={[{ label: "กิจกรรม" }]} />
-      <main className="min-h-screen bg-[#f5f5f7]">
+      <main className="min-h-screen bg-neutral-100">
         {/* ─── Page header ─── */}
         <div className="border-b border-black/6 bg-white py-20 text-center">
-          <p className="mb-3 text-[11px] font-medium tracking-[0.22em] text-[#6e6e73] uppercase">
+          <p className="mb-3 text-[11px] font-medium tracking-[0.22em] text-zinc-500 uppercase">
             ชุมชนบ้านทุ่งมน
           </p>
-          <h1 className="text-5xl font-bold tracking-tight text-[#1d1d1f]">
+          <h1 className="text-5xl font-bold tracking-tight text-zinc-900">
             กิจกรรม
           </h1>
-          <p className="mt-4 text-base text-[#6e6e73]">
+          <p className="mt-4 text-base text-zinc-500">
             ติดตามกิจกรรมและเหตุการณ์ต่าง ๆ ของชุมชนบ้านทุ่งมน
           </p>
         </div>
@@ -66,7 +66,7 @@ export default async function ActivitiesPage({
             {/* Empty */}
             {activities.length === 0 && (
               <div className="col-span-full rounded-3xl bg-white p-12 text-center">
-                <p className="text-xl text-[#6e6e73]">ยังไม่มีข้อมูลกิจกรรม</p>
+                <p className="text-xl text-zinc-500">ยังไม่มีข้อมูลกิจกรรม</p>
               </div>
             )}
 
@@ -92,23 +92,23 @@ export default async function ActivitiesPage({
                     <span className="rounded-full bg-rose-100 px-2.5 py-1 text-[11px] font-medium text-rose-700">
                       {activity.category}
                     </span>
-                    <span className="text-[12px] text-[#6e6e73]">
+                    <span className="text-[12px] text-zinc-500">
                       {displayDate(activity.activity_date)}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h2 className="mb-2 text-base leading-snug font-bold text-[#1d1d1f] underline decoration-[#1d1d1f]/0 underline-offset-2 transition-all group-hover:decoration-[#1d1d1f]/20">
+                  <h2 className="mb-2 text-base leading-snug font-bold text-zinc-900 underline decoration-zinc-900/0 underline-offset-2 transition-all group-hover:decoration-zinc-900/20">
                     {activity.title}
                   </h2>
 
                   {/* Excerpt */}
-                  <p className="line-clamp-2 text-[13px] leading-relaxed text-[#6e6e73]">
+                  <p className="line-clamp-2 text-[13px] leading-relaxed text-zinc-500">
                     {activity.excerpt}
                   </p>
 
                   {/* Arrow CTA */}
-                  <div className="mt-5 flex items-center gap-1 text-[13px] font-medium text-[#1d1d1f]">
+                  <div className="mt-5 flex items-center gap-1 text-[13px] font-medium text-zinc-900">
                     ดูรายละเอียด
                     <span className="transition-transform duration-200 group-hover:translate-x-1">
                       →

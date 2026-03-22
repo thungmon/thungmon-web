@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 interface ErrorViewProps {
   /** Error card title – defaults to "โหลดข้อมูลไม่สำเร็จ" */
@@ -18,11 +18,11 @@ export default function ErrorView({
   backLabel = "← กลับหน้าหลัก",
 }: ErrorViewProps) {
   return (
-    <main className="flex min-h-[calc(100vh-3.5rem)] items-center justify-center bg-[#f5f5f7] px-6">
+    <main className="flex min-h-[calc(100vh-3.5rem)] items-center justify-center bg-neutral-100 px-6">
       <div className="w-full max-w-md rounded-3xl bg-white p-12 text-center shadow-sm">
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#fff2f2]">
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-red-50">
           <svg
-            className="h-8 w-8 text-[#ff3b30]"
+            className="h-8 w-8 text-red-500"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
@@ -35,17 +35,17 @@ export default function ErrorView({
             />
           </svg>
         </div>
-        <h2 className="text-xl font-semibold tracking-tight text-[#1d1d1f]">
+        <h2 className="text-xl font-semibold tracking-tight text-zinc-900">
           {title}
         </h2>
         {message && (
-          <p className="mt-2 text-sm leading-relaxed text-[#6e6e73]">
+          <p className="mt-2 text-sm leading-relaxed text-zinc-500">
             {message}
           </p>
         )}
         <Link
           href={backHref}
-          className="mt-8 inline-flex items-center gap-1.5 rounded-full bg-[#1d1d1f] px-5 py-2.5 text-[13px] font-medium text-white transition-opacity hover:opacity-80"
+          className="mt-8 inline-flex items-center gap-1.5 rounded-full bg-zinc-900 px-5 py-2.5 text-[13px] font-medium text-white transition-opacity hover:opacity-80"
         >
           {backLabel}
         </Link>
