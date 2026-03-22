@@ -91,7 +91,7 @@ export default async function ActivityDetailPage({
           { label: activity.title },
         ]}
       />
-      <main className="min-h-screen bg-white">
+      <main className="bg-white">
         {/* ─── Hero ─── */}
         <div className="relative">
           {/* Cover image / fallback gradient */}
