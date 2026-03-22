@@ -17,6 +17,7 @@ export type Database = {
       activities: {
         Row: {
           activity_date: string
+          bucket_name: string | null
           category: string
           cover_image: string
           created_at: string
@@ -29,6 +30,7 @@ export type Database = {
         }
         Insert: {
           activity_date: string
+          bucket_name?: string | null
           category: string
           cover_image: string
           created_at?: string
@@ -41,6 +43,7 @@ export type Database = {
         }
         Update: {
           activity_date?: string
+          bucket_name?: string | null
           category?: string
           cover_image?: string
           created_at?: string
@@ -52,47 +55,6 @@ export type Database = {
           title?: string
         }
         Relationships: []
-      }
-      activity_images: {
-        Row: {
-          activity_id: string | null
-          caption: string | null
-          created_at: string
-          filename: string
-          id: string
-          is_public: boolean
-          sort_order: number
-          url: string | null
-        }
-        Insert: {
-          activity_id?: string | null
-          caption?: string | null
-          created_at?: string
-          filename: string
-          id?: string
-          is_public?: boolean
-          sort_order: number
-          url?: string | null
-        }
-        Update: {
-          activity_id?: string | null
-          caption?: string | null
-          created_at?: string
-          filename?: string
-          id?: string
-          is_public?: boolean
-          sort_order?: number
-          url?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "activity_images_activity_id_fkey"
-            columns: ["activity_id"]
-            isOneToOne: false
-            referencedRelation: "activities"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       community_links: {
         Row: {
