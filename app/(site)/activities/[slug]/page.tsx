@@ -1,6 +1,6 @@
 ﻿import type { Metadata } from "next";
 import Link from "next/link";
-import { PhotoGallery } from "@/components/PhotoGallery";
+import { PhotoGallery, type ActivityImage } from "@/components/PhotoGallery";
 import SubpageNavbar from "@/components/SubpageNavbar";
 import { supabase } from "@/lib/supabase";
 import { displayDate } from "@/lib/date";
@@ -73,14 +73,39 @@ export default async function ActivityDetailPage({
 
   const { data: activity, error } = await supabase
     .from("activities")
-    .select(
-      "id, slug, title, activity_date, cover_image, category, excerpt, description, created_at, activity_images (id, filename, url, caption, sort_order, created_at)",
-    )
+    .select()
     .eq("slug", decodeURIComponent(slug))
     .single();
 
   if (error || !activity) {
     return redirect("/activities");
+  }
+
+  const images: ActivityImage[] = [];
+  if (activity.bucket_name) {
+    const { data: files } = await supabase.storage
+      .from("activities")
+      .list(activity.bucket_name, {
+        limit: 500,
+        offset: 0,
+        sortBy: { column: "name", order: "asc" },
+      });
+
+    if (files) {
+      for (const f of files) {
+        if (f.name === ".emptyFolderPlaceholder") continue;
+        const { data } = supabase.storage
+          .from("activities")
+          .getPublicUrl(`${activity.bucket_name}/${f.name}`);
+        if (data?.publicUrl) {
+          images.push({
+            id: f.id ?? f.name,
+            filename: f.name,
+            url: data.publicUrl,
+          });
+        }
+      }
+    }
   }
 
   return (
@@ -160,12 +185,12 @@ export default async function ActivityDetailPage({
                   รูปภาพกิจกรรม
                 </p>
                 <p className="text-2xl font-bold tracking-tight text-zinc-900">
-                  {activity.activity_images.length} รูป
+                  {images.length} รูป
                 </p>
               </div>
               <p className="text-xs text-zinc-500">กดรูปเพื่อดูเต็มจอ</p>
             </div>
-            <PhotoGallery images={activity.activity_images} />
+            <PhotoGallery images={images} />
           </section>
 
           {/* ─── Back link ─── */}

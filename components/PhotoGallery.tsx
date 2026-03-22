@@ -7,7 +7,6 @@ export interface ActivityImage {
   id: string;
   filename: string | null;
   url: string | null;
-  caption: string | null;
 }
 
 export function PhotoGallery({ images }: { images: ActivityImage[] }) {
@@ -59,7 +58,7 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
           <button
             key={img.id}
             type="button"
-            aria-label={`ดูรูป ${img.caption ?? img.filename}`}
+            aria-label={`ดูรูป ${img.filename}`}
             onClick={() => setOpenIndex(i)}
             className="group relative aspect-4/3 w-full cursor-pointer overflow-hidden rounded-2xl bg-neutral-100"
           >
@@ -81,7 +80,7 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={img.url || undefined}
-              alt={img.caption ?? img.filename ?? ""}
+              alt={img.filename ?? ""}
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
 
@@ -106,7 +105,7 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
             {/* Caption gradient bar */}
             <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/55 to-transparent px-3 pt-6 pb-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <p className="truncate text-xs text-white/90">
-                {img.caption ?? ""}
+                {img.filename ?? ""}
               </p>
             </div>
           </button>
@@ -131,13 +130,13 @@ export function PhotoGallery({ images }: { images: ActivityImage[] }) {
             <img
               key={current.id}
               src={current.url || undefined}
-              alt={current.caption ?? current.filename ?? ""}
+              alt={current.filename ?? ""}
               className="max-h-[78vh] max-w-full rounded-2xl object-contain shadow-2xl"
             />
             {/* Caption */}
-            {current.caption && (
+            {current.filename && (
               <p className="mt-4 text-center text-sm text-white/55">
-                {current.caption}
+                {current.filename}
               </p>
             )}
           </div>
