@@ -88,6 +88,7 @@ export default async function ActivityDetailPage({
   const proto = hdrs.get("x-forwarded-proto") ?? "https";
   const pageUrl = `${proto}://${host}/activities/${activity.slug}`;
   const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
+  const messengerShareUrl = `fb-messenger://share/?link=${encodeURIComponent(pageUrl)}`;
   const lineShareUrl = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(pageUrl)}`;
 
   const images: ActivityImage[] = [];
@@ -189,6 +190,23 @@ export default async function ActivityDetailPage({
                 <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
               </svg>
               <span className="hidden sm:inline">แชร์ไปยัง Facebook</span>
+            </a>
+            <a
+              href={messengerShareUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#0099FF] p-2 text-sm font-medium text-white transition-opacity hover:opacity-90 sm:px-4 sm:py-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-5 w-5 sm:h-4 sm:w-4"
+                aria-hidden="true"
+              >
+                <path d="M12 0C5.374 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.626 0 12-4.974 12-11.111C24 4.975 18.626 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z" />
+              </svg>
+              <span className="hidden sm:inline">แชร์ไปยัง Messenger</span>
             </a>
             <a
               href={lineShareUrl}
