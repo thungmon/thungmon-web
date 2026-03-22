@@ -3,6 +3,7 @@ import Link from "next/link";
 import ActivityCardImage from "./ActivityCardImage";
 import Pagination from "@/components/Pagination";
 import { displayDate } from "@/lib/date";
+import dayjs from "dayjs";
 import ErrorView from "@/components/ErrorView";
 import SubpageNavbar from "@/components/SubpageNavbar";
 
@@ -88,10 +89,15 @@ export default async function ActivitiesPage({
                 {/* Content */}
                 <div className="p-6">
                   {/* Meta row */}
-                  <div className="mb-3 flex items-center gap-2">
+                  <div className="mb-3 flex flex-wrap items-center gap-2">
                     <span className="rounded-full bg-rose-100 px-2.5 py-1 text-xs font-medium text-rose-700">
                       {activity.category}
                     </span>
+                    {dayjs(activity.activity_date).isAfter(dayjs()) && (
+                      <span className="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-700">
+                        กำลังจะมาถึง
+                      </span>
+                    )}
                     <span className="text-xs text-zinc-500">
                       {displayDate(activity.activity_date)}
                     </span>
