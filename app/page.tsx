@@ -86,17 +86,10 @@ export default function Home() {
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
                 prefetch
-                href="/activities"
+                href="/explore"
                 className="rounded-full bg-white px-8 py-3 text-sm font-medium text-black shadow-sm transition-all duration-200 select-none hover:bg-white/80"
               >
-                กิจกรรมของเรา
-              </Link>
-              <Link
-                prefetch
-                href="/links"
-                className="rounded-full border border-white/30 bg-white/10 px-8 py-3 text-sm font-medium text-white backdrop-blur-sm transition-all duration-200 select-none hover:bg-white/20"
-              >
-                ช่องทางติดตาม
+                สำรวจชุมชน
               </Link>
             </div>
           </div>
