@@ -5,7 +5,6 @@ import Pagination from "@/components/Pagination";
 import { displayDate } from "@/lib/date";
 import dayjs from "dayjs";
 import ErrorView from "@/components/ErrorView";
-import SubpageNavbar from "@/components/SubpageNavbar";
 
 const PAGE_SIZE = 6;
 export const revalidate = 0;
@@ -35,10 +34,7 @@ export default async function ActivitiesPage({
 
   if (error) {
     return (
-      <>
-        <SubpageNavbar breadcrumbs={[{ label: "กิจกรรม" }]} />
-        <ErrorView message="เกิดข้อผิดพลาดในการโหลดกิจกรรม กรุณาลองใหม่อีกครั้ง" />
-      </>
+      <ErrorView message="เกิดข้อผิดพลาดในการโหลดกิจกรรม กรุณาลองใหม่อีกครั้ง" />
     );
   }
 
@@ -46,7 +42,6 @@ export default async function ActivitiesPage({
 
   return (
     <>
-      <SubpageNavbar breadcrumbs={[{ label: "กิจกรรม" }]} />
       <main className="min-h-screen bg-neutral-100">
         {/* ─── Page header ─── */}
         <div className="border-b border-black/6 bg-white py-20 text-center">

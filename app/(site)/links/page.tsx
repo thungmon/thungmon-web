@@ -1,7 +1,6 @@
 ﻿import { supabase } from "@/lib/supabase";
 import type { Tables } from "@/database.types";
 import ErrorView from "@/components/ErrorView";
-import SubpageNavbar from "@/components/SubpageNavbar";
 
 type CommunityLink = Tables<"community_links">;
 
@@ -30,16 +29,12 @@ export default async function LinksPage() {
 
   if (error) {
     return (
-      <>
-        <SubpageNavbar breadcrumbs={[{ label: "ช่องทางติดตาม" }]} />
-        <ErrorView message="เกิดข้อผิดพลาดในการโหลดช่องทางติดตาม กรุณาลองใหม่อีกครั้ง" />
-      </>
+      <ErrorView message="เกิดข้อผิดพลาดในการโหลดช่องทางติดตาม กรุณาลองใหม่อีกครั้ง" />
     );
   }
 
   return (
     <>
-      <SubpageNavbar breadcrumbs={[{ label: "ช่องทางติดตาม" }]} />
       <main className="min-h-screen bg-neutral-100">
         {/* ─── Page header ─── */}
         <div className="border-b border-black/6 bg-white py-20 text-center">
