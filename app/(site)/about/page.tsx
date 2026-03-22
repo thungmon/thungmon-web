@@ -1,3 +1,26 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "เกี่ยวกับเรา",
+  description:
+    "รู้จักชุมชนบ้านทุ่งมน ตำบลทุ่งมน อำเภอคำเขื่อนแก้ว จังหวัดยโสธร และที่ตั้งของเรา",
+  openGraph: {
+    title: "เกี่ยวกับเรา | บ้านทุ่งมน",
+    description:
+      "รู้จักชุมชนบ้านทุ่งมน ตำบลทุ่งมน อำเภอคำเขื่อนแก้ว จังหวัดยโสธร และที่ตั้งของเรา",
+    url: "/about",
+    type: "website",
+    locale: "th_TH",
+  },
+  twitter: {
+    card: "summary",
+    title: "เกี่ยวกับเรา | บ้านทุ่งมน",
+    description:
+      "รู้จักชุมชนบ้านทุ่งมน ตำบลทุ่งมน อำเภอคำเขื่อนแก้ว จังหวัดยโสธร และที่ตั้งของเรา",
+  },
+  alternates: { canonical: "/about" },
+};
+
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-neutral-100">

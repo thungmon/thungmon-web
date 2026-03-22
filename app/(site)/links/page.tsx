@@ -1,6 +1,25 @@
 ﻿import { supabase } from "@/lib/supabase";
+import type { Metadata } from "next";
 import ErrorView from "@/components/ErrorView";
 import CommunityLinkCard from "@/components/CommunityLinkCard";
+
+export const metadata: Metadata = {
+  title: "ช่องทางติดตาม",
+  description: "รวมทุกช่องทางที่เชื่อมต่อกับชุมชนบ้านทุ่งมน",
+  openGraph: {
+    title: "ช่องทางติดตาม | บ้านทุ่งมน",
+    description: "รวมทุกช่องทางที่เชื่อมต่อกับชุมชนบ้านทุ่งมน",
+    url: "/links",
+    type: "website",
+    locale: "th_TH",
+  },
+  twitter: {
+    card: "summary",
+    title: "ช่องทางติดตาม | บ้านทุ่งมน",
+    description: "รวมทุกช่องทางที่เชื่อมต่อกับชุมชนบ้านทุ่งมน",
+  },
+  alternates: { canonical: "/links" },
+};
 
 export const revalidate = 0;
 

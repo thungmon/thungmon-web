@@ -1,7 +1,29 @@
 import { supabase } from "@/lib/supabase";
+import type { Metadata } from "next";
 import Link from "next/link";
 import ActivityCard from "@/components/ActivityCard";
 import CommunityLinkCard from "@/components/CommunityLinkCard";
+
+export const metadata: Metadata = {
+  title: "สำรวจ",
+  description:
+    "รวมกิจกรรมล่าสุดและช่องทางติดตามทั้งหมดของชุมชนบ้านทุ่งมนไว้ในที่เดียว",
+  openGraph: {
+    title: "สำรวจ | บ้านทุ่งมน",
+    description:
+      "รวมกิจกรรมล่าสุดและช่องทางติดตามทั้งหมดของชุมชนบ้านทุ่งมนไว้ในที่เดียว",
+    url: "/explore",
+    type: "website",
+    locale: "th_TH",
+  },
+  twitter: {
+    card: "summary",
+    title: "สำรวจ | บ้านทุ่งมน",
+    description:
+      "รวมกิจกรรมล่าสุดและช่องทางติดตามทั้งหมดของชุมชนบ้านทุ่งมนไว้ในที่เดียว",
+  },
+  alternates: { canonical: "/explore" },
+};
 
 export const revalidate = 0;
 

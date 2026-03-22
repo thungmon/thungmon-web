@@ -1,7 +1,26 @@
 ﻿import { supabase } from "@/lib/supabase";
+import type { Metadata } from "next";
 import Pagination from "@/components/Pagination";
 import ActivityCard from "@/components/ActivityCard";
 import ErrorView from "@/components/ErrorView";
+
+export const metadata: Metadata = {
+  title: "กิจกรรม",
+  description: "ติดตามกิจกรรมและเหตุการณ์ต่าง ๆ ของชุมชนบ้านทุ่งมน",
+  openGraph: {
+    title: "กิจกรรม | บ้านทุ่งมน",
+    description: "ติดตามกิจกรรมและเหตุการณ์ต่าง ๆ ของชุมชนบ้านทุ่งมน",
+    url: "/activities",
+    type: "website",
+    locale: "th_TH",
+  },
+  twitter: {
+    card: "summary",
+    title: "กิจกรรม | บ้านทุ่งมน",
+    description: "ติดตามกิจกรรมและเหตุการณ์ต่าง ๆ ของชุมชนบ้านทุ่งมน",
+  },
+  alternates: { canonical: "/activities" },
+};
 
 const PAGE_SIZE = 6;
 export const revalidate = 0;

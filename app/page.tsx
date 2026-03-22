@@ -1,5 +1,36 @@
 import { IMAGE_DEFAULT } from "@/constants/app-config";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "บ้านทุ่งมน | ตำบลทุ่งมน อำเภอคำเขื่อนแก้ว จังหวัดยโสธร",
+  description:
+    "บ้านทุ่งมน ตำบลทุ่งมน อำเภอคำเขื่อนแก้ว จังหวัดยโสธร ดินแดนแห่งข้าวหอมมะลิและวัฒนธรรมอีสานอันงดงาม",
+  openGraph: {
+    title: "บ้านทุ่งมน",
+    description:
+      "บ้านทุ่งมน ตำบลทุ่งมน อำเภอคำเขื่อนแก้ว จังหวัดยโสธร ดินแดนแห่งข้าวหอมมะลิและวัฒนธรรมอีสานอันงดงาม",
+    url: "/",
+    type: "website",
+    locale: "th_TH",
+    images: [
+      {
+        url: IMAGE_DEFAULT.BG_THUNGMON,
+        width: 1200,
+        height: 630,
+        alt: "บ้านทุ่งมน",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "บ้านทุ่งมน",
+    description:
+      "บ้านทุ่งมน ตำบลทุ่งมน อำเภอคำเขื่อนแก้ว จังหวัดยโสธร ดินแดนแห่งข้าวหอมมะลิและวัฒนธรรมอีสานอันงดงาม",
+    images: [IMAGE_DEFAULT.BG_THUNGMON],
+  },
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (
