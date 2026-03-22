@@ -19,6 +19,8 @@ const PLATFORM_CONFIG: Record<
   website: { bg: "#636366", fg: "#fff", label: "W", name: "เว็บไซต์" },
 };
 
+export const revalidate = 0; 
+
 export default async function LinksPage() {
   const { data: communityLinks, error } = await supabase
     .from("community_links")
