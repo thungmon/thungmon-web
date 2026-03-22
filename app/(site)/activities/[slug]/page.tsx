@@ -6,7 +6,8 @@ import { supabase } from "@/lib/supabase";
 import { displayDate } from "@/lib/date";
 import { redirect } from "next/navigation";
 
-export const revalidate = 0;
+// cache for 5 minutes
+export const revalidate = 300;
 
 export async function generateMetadata({
   params,

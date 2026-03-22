@@ -23,7 +23,9 @@ export const metadata: Metadata = {
 };
 
 const PAGE_SIZE = 6;
-export const revalidate = 0;
+
+// cache for 5 minutes
+export const revalidate = 300;
 
 export default async function ActivitiesPage({
   searchParams,
