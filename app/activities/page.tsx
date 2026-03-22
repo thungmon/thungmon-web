@@ -3,6 +3,8 @@ import Link from "next/link";
 import ActivityCardImage from "./ActivityCardImage";
 import Pagination from "@/components/Pagination";
 import { displayDate } from "@/lib/date";
+import ErrorView from "@/components/ErrorView";
+import SubpageNavbar from "@/components/SubpageNavbar";
 
 const PAGE_SIZE = 6;
 export const revalidate = 0;
@@ -32,9 +34,10 @@ export default async function ActivitiesPage({
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-red-500">เกิดข้อผิดพลาดในการโหลดกิจกรรม</p>
-      </div>
+      <>
+        <SubpageNavbar breadcrumbs={[{ label: "กิจกรรม" }]} />
+        <ErrorView message="เกิดข้อผิดพลาดในการโหลดกิจกรรม กรุณาลองใหม่อีกครั้ง" />
+      </>
     );
   }
 
@@ -42,20 +45,7 @@ export default async function ActivitiesPage({
 
   return (
     <>
-      {/* ─── Navbar ─── */}
-      <header className="sticky top-0 z-50 border-b border-black/6 bg-white/80 backdrop-blur-2xl">
-        <nav className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-6 text-[13px]">
-          <Link
-            href="/"
-            className="text-[#6e6e73] transition-colors hover:text-[#1d1d1f]"
-          >
-            ← บ้านทุ่งมน
-          </Link>
-          <span className="text-[#6e6e73]/40">/</span>
-          <span className="font-medium text-[#1d1d1f]">กิจกรรม</span>
-        </nav>
-      </header>
-
+      <SubpageNavbar breadcrumbs={[{ label: "กิจกรรม" }]} />
       <main className="min-h-screen bg-[#f5f5f7]">
         {/* ─── Page header ─── */}
         <div className="border-b border-black/6 bg-white py-20 text-center">

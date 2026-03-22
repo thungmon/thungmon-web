@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PhotoGallery } from "./PhotoGallery";
+import SubpageNavbar from "@/components/SubpageNavbar";
 import { supabase } from "@/lib/supabase";
 import { displayDate } from "@/lib/date";
 import { redirect } from "next/navigation";
@@ -84,29 +85,12 @@ export default async function ActivityDetailPage({
 
   return (
     <>
-      {/* ─── Navbar ─── */}
-      <header className="sticky top-0 z-50 border-b border-black/6 bg-white/80 backdrop-blur-2xl">
-        <nav className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-6 text-[13px]">
-          <Link
-            href="/"
-            className="shrink-0 text-[#6e6e73] transition-colors hover:text-[#1d1d1f]"
-          >
-            บ้านทุ่งมน
-          </Link>
-          <span className="text-[#6e6e73]/40">/</span>
-          <Link
-            href="/activities"
-            className="shrink-0 text-[#6e6e73] transition-colors hover:text-[#1d1d1f]"
-          >
-            กิจกรรม
-          </Link>
-          <span className="text-[#6e6e73]/40">/</span>
-          <span className="max-w-50 truncate font-medium text-[#1d1d1f]">
-            {activity.title}
-          </span>
-        </nav>
-      </header>
-
+      <SubpageNavbar
+        breadcrumbs={[
+          { label: "กิจกรรม", href: "/activities" },
+          { label: activity.title },
+        ]}
+      />
       <main className="min-h-screen bg-white">
         {/* ─── Hero ─── */}
         <div className="relative">

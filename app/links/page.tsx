@@ -1,6 +1,7 @@
-import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import type { Tables } from "@/database.types";
+import ErrorView from "@/components/ErrorView";
+import SubpageNavbar from "@/components/SubpageNavbar";
 
 type CommunityLink = Tables<"community_links">;
 
@@ -19,7 +20,7 @@ const PLATFORM_CONFIG: Record<
   website: { bg: "#636366", fg: "#fff", label: "W", name: "เว็บไซต์" },
 };
 
-export const revalidate = 0; 
+export const revalidate = 0;
 
 export default async function LinksPage() {
   const { data: communityLinks, error } = await supabase
@@ -29,28 +30,16 @@ export default async function LinksPage() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-red-500">เกิดข้อผิดพลาดในการโหลดข้อมูล</p>
-      </div>
+      <>
+        <SubpageNavbar breadcrumbs={[{ label: "ช่องทางติดตาม" }]} />
+        <ErrorView message="เกิดข้อผิดพลาดในการโหลดช่องทางติดตาม กรุณาลองใหม่อีกครั้ง" />
+      </>
     );
   }
 
   return (
     <>
-      {/* ─── Navbar ─── */}
-      <header className="sticky top-0 z-50 border-b border-black/6 bg-white/80 backdrop-blur-2xl">
-        <nav className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-6 text-[13px]">
-          <Link
-            href="/"
-            className="text-[#6e6e73] transition-colors hover:text-[#1d1d1f]"
-          >
-            ← บ้านทุ่งมน
-          </Link>
-          <span className="text-[#6e6e73]/40">/</span>
-          <span className="font-medium text-[#1d1d1f]">ช่องทางติดตาม</span>
-        </nav>
-      </header>
-
+      <SubpageNavbar breadcrumbs={[{ label: "ช่องทางติดตาม" }]} />
       <main className="min-h-screen bg-[#f5f5f7]">
         {/* ─── Page header ─── */}
         <div className="border-b border-black/6 bg-white py-20 text-center">
