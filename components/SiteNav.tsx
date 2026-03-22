@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
+  { href: "/explore", label: "สำรวจ" },
   { href: "/activities", label: "กิจกรรม" },
   { href: "/links", label: "ช่องทางติดตาม" },
   { href: "/about", label: "เกี่ยวกับเรา" },
