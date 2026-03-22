@@ -41,7 +41,7 @@ export default async function ExplorePage() {
   const links = linksResult.data ?? [];
 
   return (
-    <main className="min-h-screen bg-neutral-100">
+    <main className="bg-neutral-100">
       {/* ─── Page header ─── */}
       <div className="border-b border-black/6 bg-white py-20 text-center">
         <p className="mb-3 text-xs font-medium tracking-[0.22em] text-zinc-500 uppercase">
