@@ -43,7 +43,7 @@
 ### 1. Clone โปรเจกต์
 
 ```bash
-git clone https://github.com/YOUR_ORG/thungmon-web.git
+git clone https://github.com/thungmon/thungmon-web.git
 cd thungmon-web
 ```
 
