@@ -85,7 +85,11 @@ export default async function LinksPage({
               ))}
             </div>
           )}
-          <Pagination currentPage={page} totalPages={totalPages} />
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            basePath="/links"
+          />
         </div>
       </main>
     </>
