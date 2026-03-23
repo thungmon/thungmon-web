@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ActivityCardImage from "@/components/ActivityCardImage";
 import ErrorView from "@/components/ErrorView";
+import Pagination from "@/components/Pagination";
 
 export const metadata: Metadata = {
   title: "สถานที่น่าสนใจ",
@@ -22,21 +23,41 @@ export const metadata: Metadata = {
   alternates: { canonical: "/places" },
 };
 
+const PAGE_SIZE = 9;
+
 // cache for 5 minutes
 export const revalidate = 300;
 
-export default async function PlacesPage() {
-  const { data: places, error } = await supabase
+export default async function PlacesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page: pageParam } = await searchParams;
+  const page = Math.max(1, parseInt(pageParam ?? "1", 10) || 1);
+  const from = (page - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+
+  const {
+    data: places,
+    error,
+    count,
+  } = await supabase
     .from("places")
-    .select("id, slug, title, cover_image, category, excerpt")
+    .select("id, slug, title, cover_image, category, excerpt", {
+      count: "exact",
+    })
     .eq("is_public", true)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .range(from, to);
 
   if (error) {
     return (
       <ErrorView message="เกิดข้อผิดพลาดในการโหลดสถานที่ กรุณาลองใหม่อีกครั้ง" />
     );
   }
+
+  const totalPages = Math.ceil((count ?? 0) / PAGE_SIZE);
 
   return (
     <main className="bg-neutral-100">
@@ -116,6 +137,7 @@ export default async function PlacesPage() {
             ))}
           </div>
         )}
+        <Pagination currentPage={page} totalPages={totalPages} />
       </div>
     </main>
   );
