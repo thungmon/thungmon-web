@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import ErrorView from "@/components/ErrorView";
 import CommunityLinkCard from "@/components/CommunityLinkCard";
+import Pagination from "@/components/Pagination";
 
 export const metadata: Metadata = {
   title: "ช่องทางติดตาม",
@@ -21,20 +22,39 @@ export const metadata: Metadata = {
   alternates: { canonical: "/links" },
 };
 
+const PAGE_SIZE = 12;
+
 // cache for 5 minutes
 export const revalidate = 300;
 
-export default async function LinksPage() {
-  const { data: communityLinks, error } = await supabase
+export default async function LinksPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page: pageParam } = await searchParams;
+  const page = Math.max(1, parseInt(pageParam ?? "1", 10) || 1);
+  const from = (page - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+
+  const {
+    data: communityLinks,
+    error,
+    count,
+  } = await supabase
     .from("community_links")
-    .select()
-    .order("sort_order");
+    .select("*", { count: "exact" })
+    .eq("is_public", true)
+    .order("sort_order")
+    .range(from, to);
 
   if (error) {
     return (
       <ErrorView message="เกิดข้อผิดพลาดในการโหลดช่องทางติดตาม กรุณาลองใหม่อีกครั้ง" />
     );
   }
+
+  const totalPages = Math.ceil((count ?? 0) / PAGE_SIZE);
 
   return (
     <>
@@ -52,19 +72,20 @@ export default async function LinksPage() {
           </p>
         </div>
 
-        {communityLinks.length === 0 && (
-          <div className="mx-auto max-w-5xl px-6 py-14">
+        {/* ─── Content ─── */}
+        <div className="mx-auto max-w-5xl px-6 py-14">
+          {communityLinks.length === 0 ? (
             <div className="rounded-3xl bg-white p-16 text-center">
               <p className="text-zinc-500">ยังไม่มีข้อมูลช่องทาง</p>
             </div>
-          </div>
-        )}
-
-        {/* ─── Content ─── */}
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 px-6 py-14 sm:grid-cols-2">
-          {communityLinks.map((l) => (
-            <CommunityLinkCard key={l.id} link={l} />
-          ))}
+          ) : (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {communityLinks.map((l) => (
+                <CommunityLinkCard key={l.id} link={l} />
+              ))}
+            </div>
+          )}
+          <Pagination currentPage={page} totalPages={totalPages} />
         </div>
       </main>
     </>
