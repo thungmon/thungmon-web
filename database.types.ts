@@ -89,6 +89,51 @@ export type Database = {
         }
         Relationships: []
       }
+      places: {
+        Row: {
+          bucket_name: string | null
+          category: string
+          cover_image: string
+          created_at: string
+          description: string
+          excerpt: string
+          id: string
+          is_public: boolean
+          latitude: number
+          longitude: number
+          slug: string
+          title: string
+        }
+        Insert: {
+          bucket_name?: string | null
+          category: string
+          cover_image: string
+          created_at?: string
+          description: string
+          excerpt: string
+          id?: string
+          is_public?: boolean
+          latitude: number
+          longitude: number
+          slug: string
+          title: string
+        }
+        Update: {
+          bucket_name?: string | null
+          category?: string
+          cover_image?: string
+          created_at?: string
+          description?: string
+          excerpt?: string
+          id?: string
+          is_public?: boolean
+          latitude?: number
+          longitude?: number
+          slug?: string
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

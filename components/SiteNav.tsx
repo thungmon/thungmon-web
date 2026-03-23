@@ -7,6 +7,7 @@ import { useState } from "react";
 const NAV_ITEMS = [
   { href: "/explore", label: "สำรวจ" },
   { href: "/activities", label: "กิจกรรม" },
+  { href: "/places", label: "สถานที่น่าสนใจ" },
   { href: "/links", label: "ช่องทางติดตาม" },
   { href: "/about", label: "เกี่ยวกับเรา" },
 ];
