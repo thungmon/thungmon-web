@@ -5,11 +5,13 @@ import Link from "next/link";
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
+  basePath: string;
 }
 
 export default function Pagination({
   currentPage,
   totalPages,
+  basePath,
 }: PaginationProps) {
   if (totalPages <= 1) return null;
 
@@ -22,7 +24,7 @@ export default function Pagination({
     >
       {/* Previous */}
       <PagerLink
-        href={pageHref(currentPage - 1)}
+        href={pageHref(currentPage - 1, basePath)}
         disabled={currentPage === 1}
         aria-label="หน้าก่อนหน้า"
       >
@@ -41,7 +43,7 @@ export default function Pagination({
         ) : (
           <PagerLink
             key={p}
-            href={pageHref(p as number)}
+            href={pageHref(p as number, basePath)}
             active={p === currentPage}
             aria-label={`หน้า ${p}`}
             aria-current={p === currentPage ? "page" : undefined}
@@ -53,7 +55,7 @@ export default function Pagination({
 
       {/* Next */}
       <PagerLink
-        href={pageHref(currentPage + 1)}
+        href={pageHref(currentPage + 1, basePath)}
         disabled={currentPage === totalPages}
         aria-label="หน้าถัดไป"
       >
@@ -65,8 +67,8 @@ export default function Pagination({
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
 
-function pageHref(page: number) {
-  return page === 1 ? "/activities" : `/activities?page=${page}`;
+function pageHref(page: number, basePath: string) {
+  return page === 1 ? basePath : `${basePath}?page=${page}`;
 }
 
 interface PagerLinkProps {

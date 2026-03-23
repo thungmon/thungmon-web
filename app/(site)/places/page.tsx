@@ -137,7 +137,11 @@ export default async function PlacesPage({
             ))}
           </div>
         )}
-        <Pagination currentPage={page} totalPages={totalPages} />
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          basePath="/places"
+        />
       </div>
     </main>
   );

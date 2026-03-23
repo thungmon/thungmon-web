@@ -89,7 +89,11 @@ export default async function ActivitiesPage({
             ))}
           </div>
 
-          <Pagination currentPage={page} totalPages={totalPages} />
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            basePath="/activities"
+          />
         </div>
       </main>
     </>
