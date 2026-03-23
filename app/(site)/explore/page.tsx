@@ -2,6 +2,7 @@ import { supabase } from "@/lib/supabase";
 import type { Metadata } from "next";
 import Link from "next/link";
 import ActivityCard from "@/components/ActivityCard";
+import NewsCard from "@/components/NewsCard";
 import CommunityLinkCard from "@/components/CommunityLinkCard";
 import ActivityCardImage from "@/components/ActivityCardImage";
 
@@ -30,24 +31,32 @@ export const metadata: Metadata = {
 export const revalidate = 300;
 
 export default async function ExplorePage() {
-  const [activitiesResult, linksResult, placesResult] = await Promise.all([
-    supabase
-      .from("activities")
-      .select("id, slug, title, activity_date, cover_image, category, excerpt")
-      .order("activity_date", { ascending: false })
-      .limit(3),
-    supabase.from("community_links").select().order("sort_order").limit(5),
-    supabase
-      .from("places")
-      .select("id, slug, title, cover_image, category, excerpt")
-      .eq("is_public", true)
-      .order("created_at", { ascending: false })
-      .limit(3),
-  ]);
+  const [activitiesResult, linksResult, placesResult, newsResult] =
+    await Promise.all([
+      supabase
+        .from("activities")
+        .select()
+        .order("activity_date", { ascending: false })
+        .limit(3),
+      supabase.from("community_links").select().order("sort_order").limit(5),
+      supabase
+        .from("places")
+        .select("id, slug, title, cover_image, category, excerpt")
+        .eq("is_public", true)
+        .order("created_at", { ascending: false })
+        .limit(3),
+      supabase
+        .from("news")
+        .select("id, slug, title, news_date, category, excerpt")
+        .eq("is_public", true)
+        .order("news_date", { ascending: false })
+        .limit(3),
+    ]);
 
   const activities = activitiesResult.data ?? [];
   const links = linksResult.data ?? [];
   const places = placesResult.data ?? [];
+  const newsList = newsResult.data ?? [];
 
   return (
     <main className="bg-neutral-100">
@@ -65,6 +74,26 @@ export default async function ExplorePage() {
       </div>
 
       <div className="mx-auto max-w-6xl space-y-14 px-6 py-14">
+        {/* ─── Latest news ─── */}
+        {newsList.length > 0 && (
+          <section>
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-zinc-900">ข่าวสารล่าสุด</h2>
+              <Link
+                href="/news"
+                className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
+              >
+                ดูทั้งหมด →
+              </Link>
+            </div>
+            <div className="flex flex-col gap-4">
+              {newsList.map((item) => (
+                <NewsCard key={item.id} {...item} />
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* ─── Latest activities ─── */}
         {activities.length > 0 && (
           <section>
