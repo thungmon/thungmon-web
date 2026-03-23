@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ActivityCard from "@/components/ActivityCard";
 import CommunityLinkCard from "@/components/CommunityLinkCard";
+import ActivityCardImage from "@/components/ActivityCardImage";
 
 export const metadata: Metadata = {
   title: "สำรวจ",
@@ -29,17 +30,24 @@ export const metadata: Metadata = {
 export const revalidate = 300;
 
 export default async function ExplorePage() {
-  const [activitiesResult, linksResult] = await Promise.all([
+  const [activitiesResult, linksResult, placesResult] = await Promise.all([
     supabase
       .from("activities")
       .select("id, slug, title, activity_date, cover_image, category, excerpt")
       .order("activity_date", { ascending: false })
       .limit(3),
     supabase.from("community_links").select().order("sort_order").limit(5),
+    supabase
+      .from("places")
+      .select("id, slug, title, cover_image, category, excerpt")
+      .eq("is_public", true)
+      .order("created_at", { ascending: false })
+      .limit(3),
   ]);
 
   const activities = activitiesResult.data ?? [];
   const links = linksResult.data ?? [];
+  const places = placesResult.data ?? [];
 
   return (
     <main className="bg-neutral-100">
@@ -58,54 +66,90 @@ export default async function ExplorePage() {
 
       <div className="mx-auto max-w-6xl space-y-14 px-6 py-14">
         {/* ─── Latest activities ─── */}
-        <section>
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-zinc-900">กิจกรรมล่าสุด</h2>
-            <Link
-              href="/activities"
-              className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
-            >
-              ดูทั้งหมด →
-            </Link>
-          </div>
-
-          {activities.length === 0 ? (
-            <div className="rounded-3xl bg-white p-12 text-center">
-              <p className="text-zinc-500">ยังไม่มีข้อมูลกิจกรรม</p>
+        {activities.length > 0 && (
+          <section>
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-zinc-900">กิจกรรมล่าสุด</h2>
+              <Link
+                href="/activities"
+                className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
+              >
+                ดูทั้งหมด →
+              </Link>
             </div>
-          ) : (
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {activities.map((activity) => (
                 <ActivityCard key={activity.id} {...activity} />
               ))}
             </div>
-          )}
-        </section>
+          </section>
+        )}
+
+        {/* ─── Places ─── */}
+        {places.length > 0 && (
+          <section>
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-zinc-900">
+                สถานที่น่าสนใจ
+              </h2>
+              <Link
+                href="/places"
+                className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
+              >
+                ดูทั้งหมด →
+              </Link>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {places.map((place) => (
+                <Link
+                  key={place.id}
+                  href={`/places/${place.slug}`}
+                  className="group block overflow-hidden rounded-3xl bg-white shadow-sm transition-shadow duration-300 hover:shadow-xl"
+                >
+                  <div className="relative aspect-video overflow-hidden">
+                    <ActivityCardImage
+                      src={place.cover_image}
+                      alt={place.title}
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="mb-3 flex items-center gap-2">
+                      <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-700">
+                        {place.category}
+                      </span>
+                    </div>
+                    <h3 className="mb-2 text-base leading-snug font-bold text-zinc-900 underline decoration-zinc-900/0 underline-offset-2 transition-all group-hover:decoration-zinc-900/20">
+                      {place.title}
+                    </h3>
+                    <p className="line-clamp-2 text-sm leading-relaxed text-zinc-500">
+                      {place.excerpt}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* ─── Community links ─── */}
-        <section>
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-zinc-900">ช่องทางติดตาม</h2>
-            <Link
-              href="/links"
-              className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
-            >
-              ดูทั้งหมด →
-            </Link>
-          </div>
-
-          {links.length === 0 ? (
-            <div className="rounded-3xl bg-white p-12 text-center">
-              <p className="text-zinc-500">ยังไม่มีข้อมูลช่องทาง</p>
+        {links.length > 0 && (
+          <section>
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-zinc-900">ช่องทางติดตาม</h2>
+              <Link
+                href="/links"
+                className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
+              >
+                ดูทั้งหมด →
+              </Link>
             </div>
-          ) : (
             <div className="grid gap-4 sm:grid-cols-2">
               {links.map((l) => (
                 <CommunityLinkCard key={l.id} link={l} />
               ))}
             </div>
-          )}
-        </section>
+          </section>
+        )}
       </div>
     </main>
   );
