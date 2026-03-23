@@ -66,47 +66,39 @@ export default async function ExplorePage() {
 
       <div className="mx-auto max-w-6xl space-y-14 px-6 py-14">
         {/* ─── Latest activities ─── */}
-        <section>
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-zinc-900">กิจกรรมล่าสุด</h2>
-            <Link
-              href="/activities"
-              className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
-            >
-              ดูทั้งหมด →
-            </Link>
-          </div>
-
-          {activities.length === 0 ? (
-            <div className="rounded-3xl bg-white p-12 text-center">
-              <p className="text-zinc-500">ยังไม่มีข้อมูลกิจกรรม</p>
+        {activities.length > 0 && (
+          <section>
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-zinc-900">กิจกรรมล่าสุด</h2>
+              <Link
+                href="/activities"
+                className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
+              >
+                ดูทั้งหมด →
+              </Link>
             </div>
-          ) : (
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {activities.map((activity) => (
                 <ActivityCard key={activity.id} {...activity} />
               ))}
             </div>
-          )}
-        </section>
+          </section>
+        )}
 
         {/* ─── Places ─── */}
-        <section>
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-zinc-900">สถานที่น่าสนใจ</h2>
-            <Link
-              href="/places"
-              className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
-            >
-              ดูทั้งหมด →
-            </Link>
-          </div>
-
-          {places.length === 0 ? (
-            <div className="rounded-3xl bg-white p-12 text-center">
-              <p className="text-zinc-500">ยังไม่มีข้อมูลสถานที่</p>
+        {places.length > 0 && (
+          <section>
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-zinc-900">
+                สถานที่น่าสนใจ
+              </h2>
+              <Link
+                href="/places"
+                className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
+              >
+                ดูทั้งหมด →
+              </Link>
             </div>
-          ) : (
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {places.map((place) => (
                 <Link
@@ -136,33 +128,28 @@ export default async function ExplorePage() {
                 </Link>
               ))}
             </div>
-          )}
-        </section>
+          </section>
+        )}
 
         {/* ─── Community links ─── */}
-        <section>
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-zinc-900">ช่องทางติดตาม</h2>
-            <Link
-              href="/links"
-              className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
-            >
-              ดูทั้งหมด →
-            </Link>
-          </div>
-
-          {links.length === 0 ? (
-            <div className="rounded-3xl bg-white p-12 text-center">
-              <p className="text-zinc-500">ยังไม่มีข้อมูลช่องทาง</p>
+        {links.length > 0 && (
+          <section>
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-zinc-900">ช่องทางติดตาม</h2>
+              <Link
+                href="/links"
+                className="text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
+              >
+                ดูทั้งหมด →
+              </Link>
             </div>
-          ) : (
             <div className="grid gap-4 sm:grid-cols-2">
               {links.map((l) => (
                 <CommunityLinkCard key={l.id} link={l} />
               ))}
             </div>
-          )}
-        </section>
+          </section>
+        )}
       </div>
     </main>
   );
