@@ -29,7 +29,7 @@ export default function SiteNav() {
         </Link>
 
         {/* Nav links — desktop */}
-        <div className="ml-auto hidden items-center gap-1 sm:flex">
+        <div className="ml-auto hidden items-center gap-1 md:flex">
           {NAV_ITEMS.map(({ href, label }) => {
             const isActive = pathname.startsWith(href);
             return (
@@ -74,7 +74,7 @@ export default function SiteNav() {
           aria-label={menuOpen ? "ปิดเมนู" : "เปิดเมนู"}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((v) => !v)}
-          className="ml-auto flex h-9 w-9 items-center justify-center rounded-full text-zinc-600 transition-colors hover:bg-zinc-100 sm:hidden"
+          className="ml-auto flex h-9 w-9 items-center justify-center rounded-full text-zinc-600 transition-colors hover:bg-zinc-100 md:hidden"
         >
           {menuOpen ? (
             <svg
@@ -110,7 +110,7 @@ export default function SiteNav() {
 
       {/* Mobile dropdown menu */}
       <div
-        className={`grid overflow-hidden border-black/6 bg-white/95 transition-all duration-300 ease-in-out sm:hidden ${
+        className={`grid overflow-hidden border-black/6 bg-white/95 transition-all duration-300 ease-in-out md:hidden ${
           menuOpen ? "grid-rows-[1fr] border-t" : "grid-rows-[0fr]"
         }`}
       >
