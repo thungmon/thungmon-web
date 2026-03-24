@@ -24,7 +24,6 @@ export default function TurnstileGate({
   children: React.ReactNode;
 }) {
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
-  console.log("siteKey", siteKey);
   const verified = useSyncExternalStore(
     subscribe,
     getSnapshot,
@@ -36,9 +35,6 @@ export default function TurnstileGate({
     // dispatch storage event so useSyncExternalStore re-reads
     window.dispatchEvent(new StorageEvent("storage", { key: SESSION_KEY }));
   }, []);
-
-  console.log("Turnstile verified:", verified);
-  console.log("Turnstile site key:", siteKey);
 
   if (verified || !siteKey) {
     return <>{children}</>;
