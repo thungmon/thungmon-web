@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { href: "/explore", label: "สำรวจ" },
   { href: "/news", label: "ข่าวสาร" },
   { href: "/activities", label: "กิจกรรม" },
+  { href: "/calendar", label: "ปฏิทิน" },
   { href: "/places", label: "สถานที่น่าสนใจ" },
   { href: "/links", label: "ช่องทางติดตาม" },
   { href: "/about", label: "เกี่ยวกับเรา" },
