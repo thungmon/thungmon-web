@@ -87,7 +87,7 @@ export default function Home() {
               <Link
                 prefetch
                 href="/explore"
-                className="rounded-full bg-white px-8 py-3 text-sm font-medium text-black shadow-sm transition-all duration-200 select-none hover:bg-white/80"
+                className="rounded-full border bg-white/10 px-8 py-3 text-sm font-medium text-white shadow-sm backdrop-blur-sm transition-all duration-200 select-none hover:bg-white/90 hover:text-amber-950"
               >
                 สำรวจชุมชน
               </Link>
