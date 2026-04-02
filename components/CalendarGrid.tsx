@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
+import Link from "next/link";
 
 const DAY_NAMES_TH = ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"];
 const MONTH_NAMES_TH = [
@@ -63,7 +64,16 @@ export default function CalendarGrid({
   prevMonthParam,
   nextMonthParam,
 }: Props) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
+
+  function navigate(monthParam: string) {
+    setSelectedDay(null);
+    startTransition(() => {
+      router.push(`/calendar?month=${monthParam}`);
+    });
+  }
 
   // Normalize all events into a unified list sorted by date
   const allItems: CalendarItem[] = [
@@ -128,19 +138,44 @@ export default function CalendarGrid({
     <div>
       {/* ── Month navigation ── */}
       <div className="mb-6 flex items-center justify-between">
-        <Link
-          href={`/calendar?month=${prevMonthParam}`}
-          className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition-all hover:bg-white hover:shadow-sm"
+        <button
+          onClick={() => navigate(prevMonthParam)}
+          disabled={isPending}
+          className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition-all hover:bg-white hover:shadow-sm disabled:opacity-40"
         >
           ← ก่อนหน้า
-        </Link>
-        <h2 className="text-xl font-bold text-zinc-900">{monthLabel}</h2>
-        <Link
-          href={`/calendar?month=${nextMonthParam}`}
-          className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition-all hover:bg-white hover:shadow-sm"
+        </button>
+        <h2 className="flex items-center gap-2 text-xl font-bold text-zinc-900">
+          {monthLabel}
+          {isPending && (
+            <svg
+              className="h-4 w-4 animate-spin text-zinc-400"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+              />
+            </svg>
+          )}
+        </h2>
+        <button
+          onClick={() => navigate(nextMonthParam)}
+          disabled={isPending}
+          className="rounded-lg px-4 py-2 text-sm font-medium text-zinc-600 transition-all hover:bg-white hover:shadow-sm disabled:opacity-40"
         >
           ถัดไป →
-        </Link>
+        </button>
       </div>
 
       {/* ── Legend ── */}
@@ -156,100 +191,105 @@ export default function CalendarGrid({
       </div>
 
       {/* ── Calendar grid ── */}
-      <div className="overflow-hidden rounded-2xl border border-black/6 bg-white shadow-sm">
-        {/* Day-of-week headers */}
-        <div className="grid grid-cols-7 border-b border-black/6">
-          {DAY_NAMES_TH.map((name, i) => (
-            <div
-              key={name}
-              className={`py-3 text-center text-xs font-semibold tracking-widest ${
-                i === 0
-                  ? "text-rose-500"
-                  : i === 6
-                    ? "text-blue-600"
-                    : "text-zinc-400"
-              }`}
-            >
-              {name}
-            </div>
-          ))}
-        </div>
-
-        {/* Day cells */}
-        <div className="grid grid-cols-7 divide-x divide-y divide-black/4">
-          {cells.map((day, i) => {
-            if (day === null) {
-              return (
-                <div
-                  key={`empty-${i}`}
-                  className="min-h-18 bg-neutral-50/60 sm:min-h-22"
-                />
-              );
-            }
-
-            const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-            const items = itemsByDate[dateStr] ?? [];
-            const hasActivity = items.some((it) => it.type === "activity");
-            const hasNews = items.some((it) => it.type === "news");
-            const isToday = dateStr === today;
-            const isSelected = selectedDay === dateStr;
-            const col = i % 7; // 0=Sun, 6=Sat
-
-            return (
-              <button
-                key={dateStr}
-                onClick={() => setSelectedDay(isSelected ? null : dateStr)}
-                className={`group relative min-h-18 p-2 text-left transition-colors sm:min-h-22 sm:p-3 ${
-                  isSelected
-                    ? "bg-zinc-900"
-                    : isToday
-                      ? "bg-zinc-50 ring-1 ring-zinc-200 ring-inset"
-                      : "hover:bg-zinc-50"
+      <div className="relative">
+        {isPending && (
+          <div className="absolute inset-0 z-10 rounded-2xl bg-white/60 backdrop-blur-[2px]" />
+        )}
+        <div className="overflow-hidden rounded-2xl border border-black/6 bg-white shadow-sm">
+          {/* Day-of-week headers */}
+          <div className="grid grid-cols-7 border-b border-black/6">
+            {DAY_NAMES_TH.map((name, i) => (
+              <div
+                key={name}
+                className={`py-3 text-center text-xs font-semibold tracking-widest ${
+                  i === 0
+                    ? "text-rose-500"
+                    : i === 6
+                      ? "text-blue-600"
+                      : "text-zinc-400"
                 }`}
               >
-                <span
-                  className={`inline-flex h-7 w-7 items-center justify-center rounded-full text-sm font-medium ${
+                {name}
+              </div>
+            ))}
+          </div>
+
+          {/* Day cells */}
+          <div className="grid grid-cols-7 divide-x divide-y divide-black/4">
+            {cells.map((day, i) => {
+              if (day === null) {
+                return (
+                  <div
+                    key={`empty-${i}`}
+                    className="min-h-18 bg-neutral-50/60 sm:min-h-22"
+                  />
+                );
+              }
+
+              const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+              const items = itemsByDate[dateStr] ?? [];
+              const hasActivity = items.some((it) => it.type === "activity");
+              const hasNews = items.some((it) => it.type === "news");
+              const isToday = dateStr === today;
+              const isSelected = selectedDay === dateStr;
+              const col = i % 7; // 0=Sun, 6=Sat
+
+              return (
+                <button
+                  key={dateStr}
+                  onClick={() => setSelectedDay(isSelected ? null : dateStr)}
+                  className={`group relative min-h-18 p-2 text-left transition-colors sm:min-h-22 sm:p-3 ${
                     isSelected
-                      ? "bg-white text-zinc-900"
+                      ? "bg-zinc-900"
                       : isToday
-                        ? "bg-zinc-800 text-white"
-                        : col === 0
-                          ? "text-rose-500"
-                          : col === 6
-                            ? "text-blue-600"
-                            : "text-zinc-700"
+                        ? "bg-zinc-50 ring-1 ring-zinc-200 ring-inset"
+                        : "hover:bg-zinc-50"
                   }`}
                 >
-                  {day}
-                </span>
-                <div className="mt-1.5 flex gap-1">
-                  {hasActivity && (
-                    <span
-                      className={`h-2 w-2 rounded-full ${
-                        isSelected ? "bg-rose-300" : "bg-rose-500"
-                      }`}
-                    />
-                  )}
-                  {hasNews && (
-                    <span
-                      className={`h-2 w-2 rounded-full ${
-                        isSelected ? "bg-sky-300" : "bg-sky-500"
-                      }`}
-                    />
-                  )}
-                </div>
-                {items.length > 0 && (
-                  <p
-                    className={`mt-1 hidden text-[11px] sm:block ${
-                      isSelected ? "text-zinc-400" : "text-zinc-400"
+                  <span
+                    className={`inline-flex h-7 w-7 items-center justify-center rounded-full text-sm font-medium ${
+                      isSelected
+                        ? "bg-white text-zinc-900"
+                        : isToday
+                          ? "bg-zinc-800 text-white"
+                          : col === 0
+                            ? "text-rose-500"
+                            : col === 6
+                              ? "text-blue-600"
+                              : "text-zinc-700"
                     }`}
                   >
-                    {items.length} รายการ
-                  </p>
-                )}
-              </button>
-            );
-          })}
+                    {day}
+                  </span>
+                  <div className="mt-1.5 flex gap-1">
+                    {hasActivity && (
+                      <span
+                        className={`h-2 w-2 rounded-full ${
+                          isSelected ? "bg-rose-300" : "bg-rose-500"
+                        }`}
+                      />
+                    )}
+                    {hasNews && (
+                      <span
+                        className={`h-2 w-2 rounded-full ${
+                          isSelected ? "bg-sky-300" : "bg-sky-500"
+                        }`}
+                      />
+                    )}
+                  </div>
+                  {items.length > 0 && (
+                    <p
+                      className={`mt-1 hidden text-[11px] sm:block ${
+                        isSelected ? "text-zinc-400" : "text-zinc-400"
+                      }`}
+                    >
+                      {items.length} รายการ
+                    </p>
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
